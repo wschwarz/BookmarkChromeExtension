@@ -1,0 +1,42 @@
+<html>
+<head><title>My Test Extension Options</title></head>
+<script type="text/javascript">
+
+// Saves options to localStorage.
+function save_options() {
+  var select = document.getElementById("address");
+  var address = select.value;
+  localStorage["address"] = address;
+
+  // Update status to let user know options were saved.
+  var status = document.getElementById("status");
+  status.innerHTML = "Options Saved.";
+  setTimeout(function() {
+    status.innerHTML = "";
+  }, 750);
+}
+
+// Restores select box state to saved value from localStorage.
+function restore_options() {
+  var address = localStorage["address"];
+  if (!address) {
+    return;
+  }
+  var select = document.getElementById("address");
+  select.value = address;
+}
+
+</script>
+
+<body onload="restore_options()">
+
+<label>Web Service Address: </label>
+<input type="textbox" name="address" id="address" ></input>
+
+<br>
+<button onclick="save_options()">Save</button>
+<br />
+<p id="status"></p>
+<br />
+</body>
+</html>

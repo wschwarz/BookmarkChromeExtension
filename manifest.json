@@ -1,0 +1,15 @@
+{
+  "name": "Bookmarks",
+  "version": "1.0",
+  "description": "Making bookmark management easier.",
+  "background_page": "background.html",
+  "options_page": "options.html",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Bookmark Manager",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "http://*/", "bookmarks", "notifications", "tabs"
+  ]
+}

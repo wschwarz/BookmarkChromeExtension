@@ -1,0 +1,72 @@
+<style>
+body {
+  min-width:357px;
+  
+}
+
+img {
+  margin:5px;
+  border:2px solid black;
+  vertical-align:middle;
+  width:75px;
+  height:75px;
+}
+</style>
+
+<script>
+function moveAll() {
+	document.getElementById('loading').innerHTML = "Running Process ...";
+	chrome.bookmarks.getTree(function(BookmarkTree) {
+		TraverseBookmarkTree(BookmarkTree);
+	});
+	document.getElementById('loading').innerHTML = "";
+}
+
+function TraverseBookmarkTree(root) {
+	for(key in root) {
+		GenerateEntry(root[key]);
+		if (typeof root[key].children != 'undefined')
+			TraverseBookmarkTree(root[key].children);
+	}
+}
+
+function GenerateEntry(BookmarkNode) {
+	if (typeof BookmarkNode.title == 'undefined')
+		return;
+	else {
+		var results = document.getElementById('bookmarks');
+		var data = "<root><title>" + BookmarkNode.title + "</title>" +
+			"<link>" + BookmarkNode.url + "</link>" +
+			"<add_date>" + BookmarkNode.dateAdded + "</add_date>" +
+			"<last_modified>" + BookmarkNode.dateGroupModified + "</last_modified>" +
+			"<category>uncategorized</category></root>";
+		var req = new XMLHttpRequest();
+		req.open("POST", localStorage["address"], true);
+		req.setRequestHeader("Content-Type", "text/xml");
+		req.onreadystatechange = function() {
+			if (req.readyState == 4){
+				var resp = req.responseText;
+			}
+		}
+		req.send(data);
+		results.innerHTML += BookmarkNode.title + " Added!<br />";
+	}
+}
+
+</script>
+
+<html>
+<head>
+	
+</head>
+<body>
+	<h1>Bookmark Manager</h1>
+	<hr />
+	<br />
+	<input type="button" name="getAll" id="getAll" value="Migrate All Bookmarks" onclick="moveAll()"></input>
+	<br />
+	<p id="loading"></p>
+	<br />
+	<p id="bookmarks"></p>
+</body>
+</html>

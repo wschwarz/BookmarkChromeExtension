@@ -1,0 +1,24 @@
+<html>
+	<script>
+		function GenerateData(bookmark) {
+			var data = "<?xml version='1.0'?><root><title>" + bookmark.title + "</title>" +
+			"<link>" + bookmark.url + "</link>" +
+			"<add_date>" + bookmark.dateAdded + "</add_date>" +
+			"<last_modified>" + bookmark.dateGroupModified + "</last_modified>" +
+			"<category>uncategorized</category></root>";
+			return data;
+		}
+		chrome.bookmarks.onCreated.addListener(function(id, bookmark) {
+			var data = GenerateData(bookmark);
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", localStorage["address"], true);
+			xhr.setRequestHeader("Content-Type", "text/xml");
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4){
+					var resp = xhr.responseText;
+				}
+			}
+			xhr.send(data);
+		});
+	</script>
+</html>
