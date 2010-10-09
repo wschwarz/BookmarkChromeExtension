@@ -1,0 +1,26 @@
+Bookmark Chrome Extension
+http://github.com/wschwarz/BookmarkChromeExtension
+
+Purpose
+  -Match bookmark CRUD and additional actions to a separate web page/service
+  -Improve basic functionality of browser bookmarking.
+  
+Progress
+  -onCreated Event - Added
+  -MigrateAll Button - Added
+  -WebServiceDestination Option - Added
+ 
+Tasks
+  -onMoved Event
+  -onRemoved Event
+  -onChanged Event
+  -Look and Feel
+  
+Description
+  This Chrome extension automatically syncs bookmark actions to a web service
+  (code located at http://github.com/wschwarz/Bookmark-Project). This allows
+  for a seamless experience using the bookmark application under construction
+  which will offer better grouping, tagging, and searching features than the 
+  default browser currently offers.
+  
+Under Construction. 
